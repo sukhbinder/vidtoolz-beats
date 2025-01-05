@@ -1,0 +1,34 @@
+[project]
+name = "vidtoolz-beats"
+version = "0.0.1"
+description = "Get beats from a mp3 song"
+readme = "README.md"
+authors = [{name = "Sukhbinder Singh"}]
+license = {text = "Apache-2.0"}
+classifiers = [
+    "License :: OSI Approved :: Apache Software License"
+]
+dependencies = [
+    "vidtoolz",
+    "librosa"
+]
+
+[project.urls]
+Homepage = "https://github.com/sukhbinder/vidtoolz-beats"
+Changelog = "https://github.com/sukhbinder/vidtoolz-beats/releases"
+Issues = "https://github.com/sukhbinder/vidtoolz-beats/issues"
+CI = "https://github.com/sukhbinder/vidtoolz-beats/actions"
+
+[project.entry-points."vidtoolz_plugins"]
+beats = "vidtoolz_beats:beats_plugin"
+
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
