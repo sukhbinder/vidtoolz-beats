@@ -22,7 +22,7 @@ vidtoolz install vidtoolz-beats
 ```
 ## Usage
 
-type ``vidtoolz-beats --help`` to get help
+type ``vidtoolz beats --help`` to get help
 
 
 

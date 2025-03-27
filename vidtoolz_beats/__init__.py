@@ -1,6 +1,7 @@
 import vidtoolz
 import librosa
 import os
+import numpy as np
 
 
 def detect_beats(audio_file):
