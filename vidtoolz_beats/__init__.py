@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 
-def detect_beats(audio_file):
+def detect_beats(audio_file, offset=0.0):
     """
     Detect major beats in an audio file and return their time and normalized amplitude.
 
@@ -17,7 +17,7 @@ def detect_beats(audio_file):
             - Normalized amplitude of the beat (0 to 1)
     """
     # Load the audio file
-    y, sr = librosa.load(audio_file)
+    y, sr = librosa.load(audio_file, offset=offset)
 
     # Detect onset strengths
     onset_env = librosa.onset.onset_strength(y=y, sr=sr)
@@ -32,7 +32,7 @@ def detect_beats(audio_file):
     normalized_amplitudes = onset_env[beat_frames] / np.max(onset_env)
 
     # Combine beat times and normalized amplitudes
-    beats_info = list(zip(beat_times, normalized_amplitudes))
+    beats_info = np.c_[beat_times, normalized_amplitudes]
 
     return beats_info
 
@@ -51,7 +51,7 @@ def create_parser(subparser):
 
 
 class ViztoolzPlugin:
-    """ Get beats from a mp3 song """
+    """Get beats from a mp3 song"""
 
     __name__ = "beats"
 
