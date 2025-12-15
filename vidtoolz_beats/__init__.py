@@ -28,6 +28,10 @@ def detect_beats(audio_file, offset=0.0):
     # Convert beat frame indices to time (in seconds)
     beat_times = librosa.frames_to_time(beat_frames, sr=sr)
 
+    # Handle case where no beats are detected
+    if len(beat_frames) == 0:
+        return np.empty((0, 2))  # Return empty array with correct shape
+
     # Normalize the amplitude of onset strengths to [0, 1]
     normalized_amplitudes = onset_env[beat_frames] / np.max(onset_env)
 
