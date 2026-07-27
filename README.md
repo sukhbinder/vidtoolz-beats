@@ -24,6 +24,25 @@ vidtoolz install vidtoolz-beats
 
 type ``vidtoolz beats --help`` to get help
 
+### Usage Examples
+
+```bash
+# Detect beats from an audio file
+vidtoolz beats my_song.mp3
+
+# Detect beats with an offset (e.g., skip first 2 seconds)
+vidtoolz beats my_song.mp3 --offset 2.0
+
+# Save results to a custom file
+vidtoolz beats my_song.mp3 --output beats.txt
+```
+
+### Options
+
+- `audio` (required): Path to the audio file (mp3 or other format)
+- `-of`, `--offset` (optional): Offset for music in seconds, default 0.0
+- `-o`, `--output` (optional): Output path for the result, default is `beats.txt`
+
 
 
 ## Development
