@@ -18,7 +18,7 @@ def test_create_parser():
     result = parser.parse_args(["hello.mp3"])
     assert result.audio == "hello.mp3"
     assert result.output == "beats.txt"
-
+    assert result.offset == 0.0
 
 def test_plugin(capsys):
     w.beats_plugin.hello(None)
@@ -86,7 +86,7 @@ def test_plugin_run_with_mock_audio():
         with patch.object(w, 'detect_beats', return_value=mock_beats), \
              patch('os.path.exists', return_value=True):
             
-            args = Namespace(audio="test.mp3", output=tmp_output)
+            args = Namespace(audio="test.mp3", output=tmp_output, offset=0.0)
             w.beats_plugin.run(args)
             
             # Verify the output file was created and contains expected data
@@ -125,7 +125,7 @@ def test_plugin_run_with_custom_output():
         with patch.object(w, 'detect_beats', return_value=mock_beats), \
              patch('os.path.exists', return_value=True):
             
-            args = Namespace(audio="test.mp3", output=tmp_output)
+            args = Namespace(audio="test.mp3", output=tmp_output, offset=0.0)
             w.beats_plugin.run(args)
             
             # Verify output file exists and has correct content
@@ -196,7 +196,7 @@ def test_integration_end_to_end_workflow():
              patch('os.path.exists', return_value=True):
             
             # Test the complete workflow
-            args = Namespace(audio=audio_path, output=output_path)
+            args = Namespace(audio=audio_path, output=output_path, offset=0.0)
             w.beats_plugin.run(args)
             
             # Verify output file was created
@@ -257,7 +257,7 @@ def test_integration_with_offset():
              patch('os.path.exists', return_value=True):
             
             # Test with offset
-            args = Namespace(audio="dummy.mp3", output=output_path)
+            args = Namespace(audio="dummy.mp3", output=output_path, offset=0.0)
             
             # Modify the plugin to use offset
             with patch.object(w, 'detect_beats') as mock_detect:
