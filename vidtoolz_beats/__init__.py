@@ -28,6 +28,10 @@ def detect_beats(audio_file, offset=0.0):
     # Convert beat frame indices to time (in seconds)
     beat_times = librosa.frames_to_time(beat_frames, sr=sr)
 
+    # Handle case where no beats are detected
+    if len(beat_frames) == 0:
+        return np.empty((0, 2))  # Return empty array with correct shape
+
     # Normalize the amplitude of onset strengths to [0, 1]
     normalized_amplitudes = onset_env[beat_frames] / np.max(onset_env)
 
@@ -40,6 +44,8 @@ def detect_beats(audio_file, offset=0.0):
 def create_parser(subparser):
     parser = subparser.add_parser("beats", description="Get beats from a mp3 song")
     parser.add_argument("audio", type=str, help="Path to the audio file")
+    parser.add_argument("-of", "--offset", type=float, default=0.0, help="Offset for music, default 0.0")
+
     parser.add_argument(
         "-o",
         "--output",
@@ -65,7 +71,7 @@ class ViztoolzPlugin:
             print(f"Error: Audio file '{args.audio}' not found.")
             return
 
-        beats_info = detect_beats(args.audio)
+        beats_info = detect_beats(args.audio, offset=args.offset)
 
         with open(args.output, "w") as f:
             for beat in beats_info:
